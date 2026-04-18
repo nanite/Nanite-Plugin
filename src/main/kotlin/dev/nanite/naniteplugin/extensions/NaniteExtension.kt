@@ -8,15 +8,15 @@ import dev.nanite.naniteplugin.types.ChangeLogData
 import javax.inject.Inject
 
 abstract class NaniteExtension @Inject constructor(private val project: Project) {
-    val changelog: ChangeLogData = project.objects.newInstance(ChangeLogData::class.java, project)
+    val changelog: ChangeLogData = project.extensions.create(
+        "changelog",
+        ChangeLogData::class.java,
+        project
+    )
 
     @get:Input
     val minecraftVersion: Property<String> = project.objects.property(String::class.java).apply {
         convention(project.properties["minecraft_version"] as String? ?: "")
-    }
-
-    fun changelog(action: Action<ChangeLogData>) {
-        action.execute(changelog)
     }
 
     // Static method to create the extension
