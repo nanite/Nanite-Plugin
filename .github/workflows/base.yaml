@@ -33,4 +33,4 @@ jobs:
           SNAPSHOT: ${{ inputs.use-snapshots }}
           NANITE_TOKEN: ${{ secrets.nanite-token }}
         run:
-          ./gradlew publish --no-daemon
+          ./gradlew test publish --no-daemon

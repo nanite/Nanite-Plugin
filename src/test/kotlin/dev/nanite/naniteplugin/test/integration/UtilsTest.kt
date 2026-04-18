@@ -8,16 +8,16 @@ class UtilsTest : IntegrationTest {
     fun `test correct version string creation`() {
         val runner = gradleTest()
             .buildScript(
-                """
-                    version = "4"
-                    
+                """                   
                     nanite {
                         minecraftVersion.set("1.21.1")
                     }
                     
                     println("MOD_VERSION=" + naniteUtils.createModVersion())
                 """.trimIndent()
-            ).run("emptyTask")
+            )
+                .addProperty("mod_version", "4")
+                .run("emptyTask")
 
         val resultText = runner.output
 
@@ -28,9 +28,7 @@ class UtilsTest : IntegrationTest {
     fun `test correct version with modern minecraft versioning`() {
         val runner = gradleTest()
             .buildScript(
-                """
-                    version = "5"
-                    
+                """                   
                     nanite {
                         minecraftVersion.set("26.1")
                     }
@@ -38,6 +36,7 @@ class UtilsTest : IntegrationTest {
                     println("MOD_VERSION=" + naniteUtils.createModVersion())
                 """.trimIndent()
             )
+            .addProperty("mod_version", "5")
             .run("emptyTask")
 
         val resultText = runner.output

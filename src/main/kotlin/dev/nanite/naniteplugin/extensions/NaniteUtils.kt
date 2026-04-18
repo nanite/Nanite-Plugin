@@ -14,20 +14,21 @@ abstract class NaniteUtils(private val project: Project) {
         val ext = NaniteExtension.extension(project)
         val minecraftVersion = ext.minecraftVersion.get()
 
-        val projectVersion = project.version.toString()
+        val modVersion = (project.property("mod_version")
+            ?: throw IllegalArgumentException("Project version is not set, please set it in your build.gradle file using the mod_version property")).toString()
 
         if (minecraftVersion.isEmpty()) {
             throw IllegalArgumentException("Minecraft version is not set")
         }
 
-        if (projectVersion.isEmpty()) {
+        if (modVersion.isEmpty()) {
             throw IllegalArgumentException("Mod version is not set")
         }
 
-        if (projectVersion.startsWith(minecraftVersion)) {
-            throw IllegalArgumentException("Project version should not start with the Minecraft version, it will be automatically added. Current version: $projectVersion")
+        if (modVersion.startsWith(minecraftVersion)) {
+            throw IllegalArgumentException("Project version should not start with the Minecraft version, it will be automatically added. Current version: $modVersion")
         }
 
-        return Utils.createModVersion(minecraftVersion, projectVersion)
+        return Utils.createModVersion(minecraftVersion, modVersion)
     }
 }
