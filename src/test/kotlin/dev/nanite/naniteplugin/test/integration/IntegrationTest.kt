@@ -1,4 +1,4 @@
-package dev.nanite.insaniam.test.integration
+package dev.nanite.naniteplugin.test.integration
 
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
@@ -16,7 +16,7 @@ interface IntegrationTest {
         val kotlinHeader = """
             plugins {
                 java
-                id("dev.nanite.plugins.insaniam")
+                id("dev.nanite.nanite-plugin")
             }
             
             // Injected empty task with a doLast to print the version
@@ -29,11 +29,11 @@ interface IntegrationTest {
         val groovyHeader = """
             plugins {
                 id 'java'
-                id 'dev.nanite.plugins.insaniam'
+                id 'dev.nanite.nanite-plugin'
             }
             
             // Injected empty task with a doLast to print the version
-            task emptyTask {
+            tasks.register('emptyTask') {
                 doLast { }
             }
         """.trimIndent()
@@ -80,7 +80,7 @@ interface IntegrationTest {
 
             buildScript(if (groovy) groovyHeader else kotlinHeader)
 
-            gradleSettings.writeText("rootProject.name = \"insanium-example\"")
+            gradleSettings.writeText("rootProject.name = \"nanite-example\"")
 
             runner.withProjectDir(projectDir)
             argument("--gradle-user-home", gradleHome.absolutePath)

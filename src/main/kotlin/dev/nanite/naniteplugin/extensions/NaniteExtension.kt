@@ -1,13 +1,13 @@
-package dev.nanite.insaniam.extensions
+package dev.nanite.naniteplugin.extensions
 
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
-import dev.nanite.insaniam.types.ChangeLogData
+import dev.nanite.naniteplugin.types.ChangeLogData
 import javax.inject.Inject
 
-abstract class InsaniamExtension @Inject constructor(private val project: Project) {
+abstract class NaniteExtension @Inject constructor(private val project: Project) {
     val changelog: ChangeLogData = project.objects.newInstance(ChangeLogData::class.java, project)
 
     @get:Input
@@ -22,11 +22,11 @@ abstract class InsaniamExtension @Inject constructor(private val project: Projec
     // Static method to create the extension
     companion object {
         fun changelog(project: Project): ChangeLogData {
-            return project.extensions.getByType(InsaniamExtension::class.java).changelog
+            return project.extensions.getByType(NaniteExtension::class.java).changelog
         }
 
-        fun extension(project: Project): InsaniamExtension {
-            return project.extensions.getByType(InsaniamExtension::class.java)
+        fun extension(project: Project): NaniteExtension {
+            return project.extensions.getByType(NaniteExtension::class.java)
         }
     }
 }

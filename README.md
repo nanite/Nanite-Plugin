@@ -1,6 +1,6 @@
-# Insaniam
+# Nanite Plugin
 
-Because modding Minecraft makes you go insane.
+Simplifying mod gradle boilerplate
 
 ## What is this?
 
@@ -17,14 +17,15 @@ Please see the maven for the latest version of the plugin.
 
 ```groovy
 plugins {
-    id 'dev.nanite.plugins.insaniam' version '0.2.0-SNAPSHOT'
+    id 'dev.nanite.nanite-plugin' version '0.1.0-SNAPSHOT'
 }
 ```
 
 ### Changelog generation
 
 ```groovy
-  insaniam {
+  // Step up for the nanite/createChangelog task
+  nanite {
     changelog {
       file = file('path/to/changelog.md')
       versionPattern = ~/## \\[[^]]+]/ // This is the default pattern and can be omitted
@@ -32,8 +33,6 @@ plugins {
       version = "1.0.0" // This will pull from 'version' in the gradle project if omitted
     }
   }
-  
-  def changelog = insaniamUtils.createChangelog() // This will create a changelog string that can be used in a task
 }
 ```
 
@@ -42,12 +41,12 @@ plugins {
 ```groovy
   version = "1-beta"
 
-  insaniam {
+  nanite {
     minecraftVersion = "1.21" // This can be omitted if you have a `minecraft_version` in your gradle project
   }
   
   // This will produce a version string like "21.0.1-beta" based on the Minecraft version in the style of NeoForge versioning
-  def modVersion = insaniamUtils.createModVersion() // This will create a mod version string that can be used in a task
+  def modVersion = naniteUtils.createModVersion() // This will create a mod version string that can be used in a task
 
   // Sometimes you might just want to instantly change the version to the new one
   // version = modVersion
@@ -59,7 +58,7 @@ plugins {
 `build.gradle`
 ```groovy
 plugins {
-    id 'dev.nanite.plugins.insaniam' version '0.2.0-SNAPSHOT'
+    id 'dev.nanite.nanite-plugin' version '0.1.0-SNAPSHOT'
 }
 ```
 
@@ -68,7 +67,7 @@ plugins {
 pluginManagement {
     repositories {
         maven {
-            url 'https://maven.nanite.dev/snapshots'
+            url 'https://maven.nanite.dev/releases'
         }
         gradlePluginPortal()
     }

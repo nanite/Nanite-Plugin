@@ -1,4 +1,4 @@
-package dev.nanite.insaniam.test.integration
+package dev.nanite.naniteplugin.test.integration
 
 import kotlin.test.Test
 import kotlin.test.assertTrue
@@ -11,11 +11,11 @@ class UtilsTest : IntegrationTest {
                 """
                     version = "4"
                     
-                    insaniam {
+                    nanite {
                         minecraftVersion.set("1.21.1")
                     }
                     
-                    println("MOD_VERSION=" + insaniamUtils.createModVersion())
+                    println("MOD_VERSION=" + naniteUtils.createModVersion())
                 """.trimIndent()
             ).run("emptyTask")
 
@@ -31,9 +31,9 @@ class UtilsTest : IntegrationTest {
                 """
                     version = "4"
                     
-                    insaniam {}
+                    nanite {}
                     
-                    println("MOD_VERSION=" + insaniamUtils.createModVersion())
+                    println("MOD_VERSION=" + naniteUtils.createModVersion())
                 """.trimIndent()
             )
             .addProperty("minecraft_version", "1.21.1")
@@ -51,11 +51,11 @@ class UtilsTest : IntegrationTest {
                 """
                     version = "5"
                     
-                    insaniam {
+                    nanite {
                         minecraftVersion.set("1.21")
                     }
                     
-                    println("MOD_VERSION=" + insaniamUtils.createModVersion())
+                    println("MOD_VERSION=" + naniteUtils.createModVersion())
                 """.trimIndent()
             )
             .run("emptyTask")

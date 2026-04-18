@@ -1,4 +1,4 @@
-package dev.nanite.insaniam.types
+package dev.nanite.naniteplugin.types
 
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty

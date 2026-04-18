@@ -9,8 +9,8 @@ plugins {
 
 val isSnapshot = providers.environmentVariable("SNAPSHOT").getOrElse("false").toBoolean()
 
-group = "dev.nanite.plugins"
-version = "0.2.1${if (isSnapshot) "-SNAPSHOT" else ""}"
+group = "dev.nanite"
+version = "0.1.0${if (isSnapshot) "-SNAPSHOT" else ""}"
 description = "Not sure yet"
 
 repositories {
@@ -41,14 +41,14 @@ tasks.withType(JavaCompile::class.java).all {
 }
 
 gradlePlugin {
-    website = "https://github.com/errormikey/insaniam"
-    vcsUrl = "https://github.com/errormikey/insaniam"
+    website = "https://github.com/nanite/nanite-plugin"
+    vcsUrl = "https://github.com/nanite/nanite-plugin"
 //    testSourceSet(sourceSets["test"])
 
-    plugins.create("insaniam") {
-        id = "dev.nanite.plugins.insaniam"
-        implementationClass = "dev.nanite.insaniam.InsaniamPlugin"
-        displayName = "Insaniam"
+    plugins.create("nanite-plugin") {
+        id = "dev.nanite.nanite-plugin"
+        implementationClass = "dev.nanite.naniteplugin.NanitePlugin"
+        displayName = "Nanite Plugin"
         description = project.description
         version = project.version
         tags = listOf("minecraft", )
@@ -67,7 +67,7 @@ publishing {
 
         if (token.isPresent()) {
             maven {
-                url = uri("https://maven.nanite.dev/${if (isSnapshot) "snapshots" else "releases"}")
+                url = uri("https://maven.nanite.dev/releases")
                 credentials {
                     username = "nanite"
                     password = token.get()
