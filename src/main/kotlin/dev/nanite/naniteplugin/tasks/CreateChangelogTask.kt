@@ -20,7 +20,7 @@ abstract class CreateChangelogTask @Inject constructor() : NaniteTask() {
 
     @TaskAction
     fun createChangelog() {
-        // Pull the changelog settings from the insainam extension
+        // Pull the changelog settings from the plugin extension
         val data = NaniteExtension.changelog(project)
 
         // Get the changelog text or try the file value

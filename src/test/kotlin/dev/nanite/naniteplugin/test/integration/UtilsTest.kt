@@ -25,34 +25,14 @@ class UtilsTest : IntegrationTest {
     }
 
     @Test
-    fun `test correct version from project versions`() {
-        val runner = gradleTest()
-            .buildScript(
-                """
-                    version = "4"
-                    
-                    nanite {}
-                    
-                    println("MOD_VERSION=" + naniteUtils.createModVersion())
-                """.trimIndent()
-            )
-            .addProperty("minecraft_version", "1.21.1")
-            .run("emptyTask")
-
-        val resultText = runner.output
-
-        assertTrue(resultText.contains("MOD_VERSION=21.1.4"))
-    }
-
-    @Test
-    fun `test correct version with non-standard semver minecraft version`() {
+    fun `test correct version with modern minecraft versioning`() {
         val runner = gradleTest()
             .buildScript(
                 """
                     version = "5"
                     
                     nanite {
-                        minecraftVersion.set("1.21")
+                        minecraftVersion.set("26.1")
                     }
                     
                     println("MOD_VERSION=" + naniteUtils.createModVersion())
@@ -62,6 +42,6 @@ class UtilsTest : IntegrationTest {
 
         val resultText = runner.output
 
-        assertTrue(resultText.contains("MOD_VERSION=21.0.5"))
+        assertTrue(resultText.contains("MOD_VERSION=26.1.0.5"))
     }
 }

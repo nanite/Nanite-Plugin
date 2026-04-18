@@ -1,5 +1,6 @@
 package dev.nanite.naniteplugin.extensions
 
+import dev.nanite.naniteplugin.minecraft.Utils
 import org.gradle.api.Project
 
 abstract class NaniteUtils(private val project: Project) {
@@ -13,29 +14,20 @@ abstract class NaniteUtils(private val project: Project) {
         val ext = NaniteExtension.extension(project)
         val minecraftVersion = ext.minecraftVersion.get()
 
-        val version = project.version.toString()
+        val projectVersion = project.version.toString()
 
         if (minecraftVersion.isEmpty()) {
             throw IllegalArgumentException("Minecraft version is not set")
         }
 
-        if (version.isEmpty()) {
+        if (projectVersion.isEmpty()) {
             throw IllegalArgumentException("Mod version is not set")
         }
 
-        val mcVersionParts = minecraftVersion.split(".").let {
-            // Remove the first part of the version
-            it.subList(1, it.size)
-        }.let {
-            // Add a 0 to the end if the version is only 1 part
-            if (it.size == 1) {
-                it + "0"
-            } else {
-                it
-            }
+        if (projectVersion.startsWith(minecraftVersion)) {
+            throw IllegalArgumentException("Project version should not start with the Minecraft version, it will be automatically added. Current version: $projectVersion")
         }
 
-        // Finally, add the mod version to the end
-        return mcVersionParts.joinToString(".") + "." + version
+        return Utils.createModVersion(minecraftVersion, projectVersion)
     }
 }
