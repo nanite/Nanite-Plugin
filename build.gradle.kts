@@ -56,16 +56,10 @@ gradlePlugin {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["java"])
-        }
-    }
-
     repositories {
         val token = providers.environmentVariable("NANITE_TOKEN")
 
-        if (token.isPresent()) {
+        if (token.isPresent) {
             maven {
                 url = uri("https://maven.nanite.dev/releases")
                 credentials {
