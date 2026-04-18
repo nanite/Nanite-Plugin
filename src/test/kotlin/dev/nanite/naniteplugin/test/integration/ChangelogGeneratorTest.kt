@@ -65,11 +65,12 @@ class ChangelogGeneratorTest : IntegrationTest {
 
         return gradleTest()
             .buildScript(
-                """                    
+                """
+                    version = "1.0.0"
+                    
                     nanite {
                         changelog {
                             file.set(file("$changelogLocation"))
-                            version.set("1.0.0")
                             ${if (includeAllArgs) extraArgs else ""}
                         }
                     }

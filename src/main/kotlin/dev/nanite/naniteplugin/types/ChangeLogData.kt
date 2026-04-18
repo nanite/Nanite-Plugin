@@ -22,7 +22,6 @@ abstract class ChangeLogData @Inject constructor(project: Project) {
     val versionPattern: Property<Pattern> = project.objects.property(Pattern::class.java)
 
     init {
-        version.convention(project.version.toString())
         versionPattern.convention(Regex("## \\[[^]]+]").toPattern())
         fallbackValue.convention("No changelog data found")
     }

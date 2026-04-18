@@ -45,7 +45,7 @@ gradlePlugin {
     vcsUrl = "https://github.com/nanite/nanite-plugin"
 //    testSourceSet(sourceSets["test"])
 
-    plugins.create("nanite-plugin") {
+    plugins.create("nanitePlugin") {
         id = "dev.nanite.nanite-plugin"
         implementationClass = "dev.nanite.naniteplugin.NanitePlugin"
         displayName = "Nanite Plugin"
